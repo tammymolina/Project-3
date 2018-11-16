@@ -1,0 +1,125 @@
+/*
+ * Author: Tammy Molina
+ *Class: CMSC140
+ * Instructor: Professor Tsai
+ * Project 3
+ * Description: This program allows the user to enter exam questions into a file for a driver lisense written exam.
+ * Due Date: 10/28/18
+ * I pledge that I have completed the programming assignment independently.
+   I have not copied the code from a student or any source.
+   I have not given my code to any student.
+   Print your Name here: Tammy Molina
+
+ List of Input for the program:
+  1. data file name
+  2. exam questions
+  3. exam answers
+  4. choice to add more exam questions
+
+
+ * List of Output from the program:
+  1. Complete script
+  2. data file containing exam questions and answers
+  3. total number of questions entered 
+  4. My name as the programmer
+  5. Project number
+  6. Due date
+
+
+ * Pseudocode or Algorithm for the program:
+
+ 1.	Declare variables
+ 2.	Cout �enter a country name�
+ 3.	getline countryName
+ 4.	cout converter Toolkit Menu choices/options
+ 5.	cout �enter your choice�
+ 6.	cin choice
+ 7.	if choice == 1
+	cout �enter temperature in celsius�
+	cin celsius
+	convert to Fahrenheit and cout conversion
+ 8.	else if choice == 2
+	cout �enter distance in kilometer�
+	cin kilometer
+	if (kilometer < 0)
+		cout �Program does not convert negative distance�
+	else convert to miles and cout conversion
+ 9.	else if choice == 3
+	cout �enter weight in kilograms�
+	cin kilograms
+		if (kilograms < 0)
+			cout �Program does not convert negative weight�
+		else convert to pounds and cout conversion
+ 10.else if choice == 4
+		cout �you have ended the program�
+ 11.else if choice < 1 or choice > 4
+	cout �please enter a number  1 � 4�
+ 12. cout ending messages (thank you, programmer name, class, project number)
+
+*/
+
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+
+int main()
+{
+	//define variables
+	ofstream questionFile;
+	string questionFilename;
+	string question;
+	char answer;
+	int totalNumOfAddedQuestions = 0;
+	char userChoiceToAddQ;
+	string programmerName = "Tammy Molina";
+	int projectNumber = 3;
+	string dueDate = "10/28/2018";
+
+	cout << "Exam Question Creation\n"
+		<< "------------------------\n\n";
+
+	//opening file
+	cout << "Enter the name of the file to be used: ";
+	cin >> questionFilename;
+	// opens user's choice of file, makes sure previous data is not erased
+	questionFile.open(questionFilename, ios::app);
+	cout << endl;
+
+	// adding questions
+	do
+	{
+		cout << "\nEnter a Yes/No question (in one line, no more than 70 characters): ";
+		cin.ignore();
+		getline(cin, question);
+		questionFile << question
+			         << endl;
+		cout << "Enter answer (Y or N): ";
+		cin >> answer;
+		questionFile << answer
+			         << endl;
+		cout << "\nDo you have one more question to enter (Y or N): ";
+		cin >> userChoiceToAddQ;
+		cout << endl;
+		totalNumOfAddedQuestions++;
+
+	} while (userChoiceToAddQ == 'Y' || userChoiceToAddQ == 'y');
+
+	questionFile.close();
+
+	//display ending messages
+	cout << totalNumOfAddedQuestions 
+		<< " questions are added this run.\n\n"
+		<< "Thank you for taking my program!!\n"
+		<< "PROGRAMMER: "
+		<< programmerName
+		<< "\nCMSC140 Common Project "
+		<< projectNumber
+		<< "\nDue Date: "
+		<< dueDate
+		<< endl;
+
+	system("pause");
+	return 0;
+
+}
